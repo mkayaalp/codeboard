@@ -258,6 +258,10 @@ app.controller('IdeCtrl',
         // if the language doesn't require compilation, e.g. Python, enable the html rendering of the output
         var lRenderOutputAsHTML = aRenderAsHtmlOutput || !($scope.isCompilationNeeded());
 
+        // newer versions of Docker changed websockets to send data in binary Blob format
+        // flag to enable support for Blob websocket data
+        var newDockerWSBinaryFormat = true;
+
         // clear the output
         setOutput('', lRenderOutputAsHTML);
 
@@ -282,19 +286,61 @@ app.controller('IdeCtrl',
 
         // Function to handle the event of the WS receiving data
         var onWSDataHandler = function(aNewlyReceivedData) {
+          if (newDockerWSBinaryFormat === true) {
+            // docker ws should be sending data as blob
+            if (aNewlyReceivedData instanceof Blob) {
 
-          var outputLength = addToOutput(aNewlyReceivedData, lRenderOutputAsHTML);
+              // every WSDataHandle event gets its own file reader because data blobs might come in too fast to reuse
+              // the same reader instance for several events
+              var fileReader = new FileReader();
 
-          // account for the number of messages
-          numOfMessages += 1;
-          //if(numOfMessages > maxNumOfMessages) {
-          if(outputLength > maxNumOfMessageCharacters) {
-            addToOutput("\n\nYour program output has more than " + maxNumOfMessageCharacters + " characters. That's quite a lot.\n" +
-              'For this reason, Codeboard has terminated your program.\n\n', lRenderOutputAsHTML);
+              console.log('Trying to process Blob');
 
-            WebsocketSrv.close(true);
+              // load event is fired when content read by filereader becomes available
+              fileReader.onload = function(event) {
+
+                console.log(fileReader.result);
+
+                var outputLength = addToOutput(fileReader.result, lRenderOutputAsHTML);
+                // account for the number of messages
+                numOfMessages += 1;
+                //if(numOfMessages > maxNumOfMessages) {
+                if(outputLength > maxNumOfMessageCharacters) {
+
+                  // TODO: we should call this after the close event of the websocket; otherwise this msg doesn't always show
+                  addToOutput("\n\nYour program output has more than " + maxNumOfMessageCharacters + " characters. That's quite a lot.\n" +
+                    'For this reason, Codeboard has terminated your program.\n\n', lRenderOutputAsHTML);
+
+                  WebsocketSrv.close(true);
+                }
+
+              };
+
+              fileReader.readAsText(aNewlyReceivedData);
+            }
+            else {
+
+              // TODO: testing thing for changing how Mantra handles WS
+              var outputLength = addToOutput(aNewlyReceivedData, lRenderOutputAsHTML);
+
+            }
           }
-        }
+          else {
+            // TODO: this entire else block can be removed when all Mantra uses Docker versions where WS use Blob data
+            var outputLength = addToOutput(aNewlyReceivedData, lRenderOutputAsHTML);
+            // account for the number of messages
+            numOfMessages += 1;
+            //if(numOfMessages > maxNumOfMessages) {
+            if(outputLength > maxNumOfMessageCharacters) {
+
+              // TODO: we should call this after the close event of the websocket; otherwise this msg doesn't always show
+              addToOutput("\n\nYour program output has more than " + maxNumOfMessageCharacters + " characters. That's quite a lot.\n" +
+                'For this reason, Codeboard has terminated your program.\n\n', lRenderOutputAsHTML);
+
+              WebsocketSrv.close(true);
+            }
+          }
+        };
 
         // Function to handle the event of the WS closing
         var onWSCloseCallback = function() {
