@@ -1,3 +1,5 @@
+*Forked from [codeboardio/codeboard](https://github.com/codeboardio/codeboard). Deployment is not recommended due to old dependencies.*
+
 # Codeboard
 
 Codeboard is a web-based IDE to teach programming in the classroom. This is the core of the Codeboard web application. Part of the codeboard.io project.
@@ -6,15 +8,20 @@ Codeboard is a web-based IDE to teach programming in the classroom. This is the 
 
 Codeboard requires NodeJS, MySQL, MongoDB, and graphicsmagick (for resizing user profile pictures).
 
-* Nodejs: tested with version 0.12.9
-* MongoDB: tested with version 2.6.4
-* Codeboard has been tested on an Ubuntu 14.04 system.
+* Nodejs: tested with version 0.12.18
+* MongoDB: tested with version 2.6.10
+* Codeboard has been tested on an Ubuntu 16.04 system.
 
 
 ### Preparing the server
 
-We need to install MySQL and create a database:
+Installing node and npm:
+```
+wget https://nodejs.org/dist/v0.12.18/node-v0.12.18-linux-x64.tar.gz
+sudo tar xf node-v0.12.18-linux-x64.tar.gz  --directory /usr/local --strip-components 1
+```
 
+We need to install MySQL and create a database:
 ```
 # Update packages and sources
 sudo apt-get update
@@ -22,18 +29,37 @@ sudo apt-get update
 # Install MySQL and set the the root password
 sudo apt-get install mysql-server
 
-# Tell MySQL to create its DB directory structure
-sudo mysql_install_db
-
 # Run a security script
 sudo mysql_secure_installation
-
-# You should now create a db user with limited privilges and a secure password.
-# Then create the database for codeboard using the MySQL command: CREATE SCHEMA `codeboard` ;
-# You might also want to create other database, e.g. for testing: CREATE SCHEMA `codeboard-test`;
 ```
 
-We also need to install MongoDB. Follow the instructions [here](https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-14-04).
+Then create the databases for codeboard and create a db user with limited privilges and a secure password:
+```sql
+CREATE SCHEMA `codeboard`;
+CREATE SCHEMA `codeboard-test`;
+CREATE USER `mysqlUser`@`localhost` IDENTIFIED BY 'mysqlPassword';
+GRANT ALL PRIVILEGES ON `codeboard`.* TO `mysqlUser`@`localhost`;
+GRANT ALL PRIVILEGES ON `codeboard-test`.* TO `mysqlUser`@`localhost`;
+FLUSH PRIVILEGES;
+```
+
+We also need to install MongoDB:
+```
+sudo apt update
+sudo apt install mongodb-org
+```
+
+Create users for mongo databases:
+```
+use fullstack-dev
+db.createUser({ user: "mongoUser", pwd: "mongoPassword", roles: [ "readWrite", "dbAdmin" ]});
+use codeboardSession
+db.createUser({ user: "mongoUser", pwd: "mongoPassword", roles: [ "readWrite", "dbAdmin" ]});
+use codeboardLogs
+db.createUser({ user: "mongoUser", pwd: "mongoPassword", roles: [ "readWrite", "dbAdmin" ]});
+use codeboardLogs-test
+db.createUser({ user: "mongoUser", pwd: "mongoPassword", roles: [ "readWrite", "dbAdmin" ]});
+```
 
 ## Installing Codeboard
 
@@ -82,8 +108,10 @@ grunt serve
 Build an optimize version for production deployment
 ```
 # Will create a folder dist
-# Deploy from dist using command: NODE_ENV=production node server.js
 grunt build 
+
+cd dist
+NODE_ENV=production node server.js
 ```
 
 Test Codeboard
