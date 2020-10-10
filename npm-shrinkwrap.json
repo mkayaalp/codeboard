@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "dependencies": {
     "bluebird": {
-      "version": "2.2.2",
-      "from": "bluebird@2.2.2",
-      "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-2.2.2.tgz"
+      "version": "3.7.2",
+      "from": "bluebird@>=3.0.0 <4.0.0",
+      "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.7.2.tgz"
     },
     "body-parser": {
       "version": "1.3.0",
