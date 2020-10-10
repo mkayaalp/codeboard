@@ -5,11 +5,9 @@ var app = require('../../server.js'),
   bodyParser = require('body-parser'),
   fs = require('fs');
 
-app.use(bodyParser());
+app.use(bodyParser.json());
 
 var projectUrl = '/api/projects/5';
-
-app.use(bodyParser());
 
 describe('Test Mantra with C++ compilation', function () {
 

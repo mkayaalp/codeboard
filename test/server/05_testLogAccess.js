@@ -7,7 +7,7 @@ var app = require('../../server.js'),
   bodyParser = require('body-parser'),
   expect = require('chai').expect;
 
-app.use(bodyParser());
+app.use(bodyParser.json());
 
 var cookie,cookie2,cookie3;
 var req = request(app);
