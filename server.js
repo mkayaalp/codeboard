@@ -89,7 +89,9 @@ if (env !== 'test') {
   app.use(session(
     {
       name: config.sessionSettings.name,
-      secret: config.sessionSettings.secret
+      secret: config.sessionSettings.secret,
+      resave: true,
+      saveUninitialized: true
     }
   ));
 }
