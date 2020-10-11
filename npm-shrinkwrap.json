@@ -383,9 +383,95 @@
       }
     },
     "ejs": {
-      "version": "0.8.4",
-      "from": "ejs@0.8.4",
-      "resolved": "https://registry.npmjs.org/ejs/-/ejs-0.8.4.tgz"
+      "version": "3.1.5",
+      "from": "ejs@3.1.5",
+      "resolved": "https://registry.npmjs.org/ejs/-/ejs-3.1.5.tgz",
+      "dependencies": {
+        "jake": {
+          "version": "10.8.2",
+          "from": "jake@>=10.6.1 <11.0.0",
+          "resolved": "https://registry.npmjs.org/jake/-/jake-10.8.2.tgz",
+          "dependencies": {
+            "filelist": {
+              "version": "1.0.1",
+              "from": "filelist@>=1.0.1 <2.0.0",
+              "resolved": "https://registry.npmjs.org/filelist/-/filelist-1.0.1.tgz"
+            },
+            "minimatch": {
+              "version": "3.0.4",
+              "from": "minimatch@>=3.0.4 <4.0.0",
+              "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-3.0.4.tgz",
+              "dependencies": {
+                "brace-expansion": {
+                  "version": "1.1.11",
+                  "from": "brace-expansion@>=1.1.7 <2.0.0",
+                  "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz",
+                  "dependencies": {
+                    "balanced-match": {
+                      "version": "1.0.0",
+                      "from": "balanced-match@>=1.0.0 <2.0.0",
+                      "resolved": "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.0.tgz"
+                    },
+                    "concat-map": {
+                      "version": "0.0.1",
+                      "from": "concat-map@0.0.1",
+                      "resolved": "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz"
+                    }
+                  }
+                }
+              }
+            },
+            "chalk": {
+              "version": "2.4.2",
+              "from": "chalk@>=2.4.2 <3.0.0",
+              "resolved": "https://registry.npmjs.org/chalk/-/chalk-2.4.2.tgz",
+              "dependencies": {
+                "ansi-styles": {
+                  "version": "3.2.1",
+                  "from": "ansi-styles@>=3.2.1 <4.0.0",
+                  "resolved": "https://registry.npmjs.org/ansi-styles/-/ansi-styles-3.2.1.tgz",
+                  "dependencies": {
+                    "color-convert": {
+                      "version": "1.9.3",
+                      "from": "color-convert@>=1.9.0 <2.0.0",
+                      "resolved": "https://registry.npmjs.org/color-convert/-/color-convert-1.9.3.tgz",
+                      "dependencies": {
+                        "color-name": {
+                          "version": "1.1.3",
+                          "from": "color-name@1.1.3",
+                          "resolved": "https://registry.npmjs.org/color-name/-/color-name-1.1.3.tgz"
+                        }
+                      }
+                    }
+                  }
+                },
+                "escape-string-regexp": {
+                  "version": "1.0.5",
+                  "from": "escape-string-regexp@>=1.0.5 <2.0.0",
+                  "resolved": "https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz"
+                },
+                "supports-color": {
+                  "version": "5.5.0",
+                  "from": "supports-color@>=5.3.0 <6.0.0",
+                  "resolved": "https://registry.npmjs.org/supports-color/-/supports-color-5.5.0.tgz",
+                  "dependencies": {
+                    "has-flag": {
+                      "version": "3.0.0",
+                      "from": "has-flag@>=3.0.0 <4.0.0",
+                      "resolved": "https://registry.npmjs.org/has-flag/-/has-flag-3.0.0.tgz"
+                    }
+                  }
+                }
+              }
+            },
+            "async": {
+              "version": "0.9.2",
+              "from": "async@>=0.9.0 <0.10.0",
+              "resolved": "https://registry.npmjs.org/async/-/async-0.9.2.tgz"
+            }
+          }
+        }
+      }
     },
     "expect.js": {
       "version": "0.3.1",
