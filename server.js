@@ -80,7 +80,10 @@ if (env !== 'test') {
       cookie: {maxAge: 30 * 24 * 60 * 60 * 1000}, // session expires after 30 days (unit is ms)
       resave: true,
       saveUninitialized: true,
-      store: new mongoStore({db: config.sessionSettings.mongoStoreDbName, clear_interval: 6 * 3600}) // clear interval removes expired sessions every 6h (unit is sec)
+      store: new mongoStore({
+        url: config.sessionSettings.mongoStoreUri,
+        clear_interval: 6 * 3600 // clear interval removes expired sessions every 6h (unit is sec)
+      })
     }
   ));
 } else {
