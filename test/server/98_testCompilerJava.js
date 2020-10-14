@@ -333,7 +333,6 @@ describe('Test Mantra with Java compilation', function () {
       .expect('Content-Type', /json/)
       .expect(404)
       .end(function (error, reply) {
-        reply.statusCode.should.equal(404);
         reply.body.msg.should.not.equal(undefined);
         (reply.body.msg.indexOf("The id INVALID_ID is not valid. Try compiling your project and then execute this request again.")).should.not.equal(-1);
         done();

@@ -82,9 +82,8 @@ describe('Test Mantra with Haskell compilation', function () {
       .post(projectUrl)
       .send(data)
       .expect('Content-Type', /json/)
-      .expect(200)
+      .expect(400)
       .end(function (error, reply) {
-        reply.statusCode.should.equal(400);
         (reply.body.output.indexOf("The provided Codeboard configuration (codeboard.json) violates the JSON format.")).should.not.equal(-1);
         done();
       });
@@ -99,9 +98,8 @@ describe('Test Mantra with Haskell compilation', function () {
       .post(projectUrl)
       .send(data)
       .expect('Content-Type', /json/)
-      .expect(200)
+      .expect(400)
       .end(function (error, reply) {
-        reply.statusCode.should.equal(400);
         (reply.body.output.indexOf("The provided files are missing the Codeboard configuration file (codeboard.json).")).should.not.equal(-1);
         done();
       });
@@ -377,7 +375,6 @@ describe('Test Mantra with Haskell compilation', function () {
       .expect('Content-Type', /json/)
       .expect(404)
       .end(function (error, reply) {
-        reply.statusCode.should.equal(404);
         reply.body.msg.should.not.equal(undefined);
         (reply.body.msg.indexOf("The id INVALID_ID is not valid. Try compiling your project and then execute this request again.")).should.not.equal(-1);
         done();

@@ -399,14 +399,12 @@ module.exports = function (grunt) {
         './test/server/06_testPartials.js',
         //'./test/server/07_testLTIandSubmissions.js' // it seems these are not generic tests; need to refactor
         './test/server/services/test_projectSrv.js',
-        './test/server/services/test_testingSrv.js'
-
-        // we're leaving the compiler tests commented out for now (but they work)
-        //'./test/server/94_testCompilerC.js',
-        //'./test/server/95_testCompilerCpp.js',
-        //'./test/server/97_testCompilerHaskell.js',
-        //'./test/server/98_testCompilerJava.js',
-        //'./test/server/99_testCompilerPython.js'
+        './test/server/services/test_testingSrv.js',
+        './test/server/94_testCompilerC.js',
+        './test/server/95_testCompilerCpp.js',
+        './test/server/97_testCompilerHaskell.js',
+        './test/server/98_testCompilerJava.js',
+        './test/server/99_testCompilerPython.js'
       ]
     },
 

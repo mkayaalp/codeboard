@@ -77,9 +77,8 @@ describe('Test Mantra with Python compilation', function () {
       .post(projectUrl)
       .send(data)
       .expect('Content-Type', /json/)
-      .expect(200)
+      .expect(400)
       .end(function (error, reply) {
-        reply.statusCode.should.equal(400);
         (reply.body.output.indexOf("The provided Codeboard configuration (codeboard.json) violates the JSON format.")).should.not.equal(-1);
         done();
       });
@@ -93,9 +92,8 @@ describe('Test Mantra with Python compilation', function () {
       .post(projectUrl)
       .send(data)
       .expect('Content-Type', /json/)
-      .expect(200)
+      .expect(400)
       .end(function (error, reply) {
-        reply.statusCode.should.equal(400);
         (reply.body.output.indexOf("The provided files are missing the Codeboard configuration file (codeboard.json).")).should.not.equal(-1);
         done();
       });
@@ -248,7 +246,6 @@ describe('Test Mantra with Python compilation', function () {
       .expect(404)
       .end(function (error, reply) {
         console.log(reply.body);
-        reply.statusCode.should.equal(404);
         reply.body.msg.should.equal("Requested resource does not exist.");
         done();
       });
