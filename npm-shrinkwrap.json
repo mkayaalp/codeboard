@@ -1650,9 +1650,9 @@
       "resolved": "https://registry.npmjs.org/connect-busboy/-/connect-busboy-0.0.2.tgz"
     },
     "connect-livereload": {
-      "version": "0.3.0",
-      "from": "connect-livereload@0.3.0",
-      "resolved": "https://registry.npmjs.org/connect-livereload/-/connect-livereload-0.3.0.tgz",
+      "version": "0.6.1",
+      "from": "connect-livereload@0.6.1",
+      "resolved": "https://registry.npmjs.org/connect-livereload/-/connect-livereload-0.6.1.tgz",
       "dev": true
     },
     "connect-mongo": {
