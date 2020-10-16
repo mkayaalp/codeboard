@@ -7054,9 +7054,9 @@
       "dev": true
     },
     "passport": {
-      "version": "0.2.0",
-      "from": "passport@0.2.0",
-      "resolved": "https://registry.npmjs.org/passport/-/passport-0.2.0.tgz"
+      "version": "0.4.1",
+      "from": "passport@0.4.1",
+      "resolved": "https://registry.npmjs.org/passport/-/passport-0.4.1.tgz"
     },
     "passport-local": {
       "version": "0.1.6",
