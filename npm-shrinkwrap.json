@@ -7059,23 +7059,9 @@
       "resolved": "https://registry.npmjs.org/passport/-/passport-0.4.1.tgz"
     },
     "passport-local": {
-      "version": "0.1.6",
-      "from": "passport-local@0.1.6",
-      "resolved": "https://registry.npmjs.org/passport-local/-/passport-local-0.1.6.tgz",
-      "dependencies": {
-        "passport": {
-          "version": "0.1.18",
-          "from": "passport@>=0.1.1 <0.2.0",
-          "resolved": "https://registry.npmjs.org/passport/-/passport-0.1.18.tgz",
-          "dependencies": {
-            "pause": {
-              "version": "0.0.1",
-              "from": "pause@0.0.1",
-              "resolved": "https://registry.npmjs.org/pause/-/pause-0.0.1.tgz"
-            }
-          }
-        }
-      }
+      "version": "1.0.0",
+      "from": "passport-local@1.0.0",
+      "resolved": "https://registry.npmjs.org/passport-local/-/passport-local-1.0.0.tgz"
     },
     "passport-strategy": {
       "version": "1.0.0",
@@ -7177,11 +7163,6 @@
       "from": "pinkie-promise@>=2.0.0 <3.0.0",
       "resolved": "https://registry.npmjs.org/pinkie-promise/-/pinkie-promise-2.0.1.tgz",
       "dev": true
-    },
-    "pkginfo": {
-      "version": "0.2.3",
-      "from": "pkginfo@>=0.2.0 <0.3.0",
-      "resolved": "https://registry.npmjs.org/pkginfo/-/pkginfo-0.2.3.tgz"
     },
     "plist": {
       "version": "1.2.0",
