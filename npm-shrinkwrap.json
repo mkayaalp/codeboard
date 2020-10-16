@@ -1744,9 +1744,9 @@
       "resolved": "https://registry.npmjs.org/cryptiles/-/cryptiles-0.2.2.tgz"
     },
     "crypto-js": {
-      "version": "3.1.8",
-      "from": "crypto-js@>=3.1.2-2 <3.2.0",
-      "resolved": "https://registry.npmjs.org/crypto-js/-/crypto-js-3.1.8.tgz"
+      "version": "3.1.9-1",
+      "from": "crypto-js@>=3.1.9-1 <3.2.0",
+      "resolved": "https://registry.npmjs.org/crypto-js/-/crypto-js-3.1.9-1.tgz"
     },
     "crypto-random-string": {
       "version": "1.0.0",
@@ -6722,9 +6722,9 @@
       "optional": true
     },
     "oauth-signature": {
-      "version": "1.1.3",
-      "from": "oauth-signature@1.1.3",
-      "resolved": "https://registry.npmjs.org/oauth-signature/-/oauth-signature-1.1.3.tgz"
+      "version": "1.5.0",
+      "from": "oauth-signature@1.5.0",
+      "resolved": "https://registry.npmjs.org/oauth-signature/-/oauth-signature-1.5.0.tgz"
     },
     "object-assign": {
       "version": "4.1.1",
@@ -9378,6 +9378,18 @@
       "from": "upper-case-first@>=1.1.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/upper-case-first/-/upper-case-first-1.1.2.tgz",
       "dev": true
+    },
+    "uri-js": {
+      "version": "3.0.2",
+      "from": "uri-js@>=3.0.2 <4.0.0",
+      "resolved": "https://registry.npmjs.org/uri-js/-/uri-js-3.0.2.tgz",
+      "dependencies": {
+        "punycode": {
+          "version": "2.1.1",
+          "from": "punycode@>=2.1.0 <3.0.0",
+          "resolved": "https://registry.npmjs.org/punycode/-/punycode-2.1.1.tgz"
+        }
+      }
     },
     "uri-path": {
       "version": "0.0.2",
