@@ -3486,6 +3486,12 @@
           "resolved": "https://registry.npmjs.org/has-ansi/-/has-ansi-0.1.0.tgz",
           "dev": true
         },
+        "lodash": {
+          "version": "3.10.1",
+          "from": "lodash@>=3.1.0 <4.0.0",
+          "resolved": "https://registry.npmjs.org/lodash/-/lodash-3.10.1.tgz",
+          "dev": true
+        },
         "strip-ansi": {
           "version": "0.3.0",
           "from": "strip-ansi@>=0.3.0 <0.4.0",
@@ -3648,6 +3654,12 @@
       "resolved": "https://registry.npmjs.org/grunt-contrib-uglify/-/grunt-contrib-uglify-0.11.0.tgz",
       "dev": true,
       "dependencies": {
+        "lodash": {
+          "version": "3.10.1",
+          "from": "lodash@>=3.2.0 <4.0.0",
+          "resolved": "https://registry.npmjs.org/lodash/-/lodash-3.10.1.tgz",
+          "dev": true
+        },
         "uri-path": {
           "version": "1.0.0",
           "from": "uri-path@>=1.0.0 <2.0.0",
@@ -5564,9 +5576,9 @@
       "dev": true
     },
     "lodash": {
-      "version": "3.3.1",
-      "from": "lodash@3.3.1",
-      "resolved": "https://registry.npmjs.org/lodash/-/lodash-3.3.1.tgz"
+      "version": "4.17.20",
+      "from": "lodash@4.17.20",
+      "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.20.tgz"
     },
     "lodash._arraycopy": {
       "version": "3.0.0",
