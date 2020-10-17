@@ -65,7 +65,7 @@ module.exports = function (grunt) {
       },
       styles: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
-        tasks: ['newer:copy:styles', 'autoprefixer']
+        tasks: ['newer:copy:styles', 'postcss']
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -135,9 +135,11 @@ module.exports = function (grunt) {
     },
 
     // Add vendor prefixed styles
-    autoprefixer: {
+    postcss: {
       options: {
-        browsers: ['last 1 version']
+        processors: [
+          require('autoprefixer')()
+        ]
       },
       dist: {
         files: [{
@@ -440,7 +442,7 @@ module.exports = function (grunt) {
       return grunt.task.run([
         'clean:server',
         'concurrent:server',
-        'autoprefixer',
+        'postcss',
         'concurrent:debug'
       ]);
     }
@@ -448,7 +450,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'concurrent:server',
-      'autoprefixer',
+      'postcss',
       'express:dev',
       'open',
       'watch'
@@ -467,7 +469,7 @@ module.exports = function (grunt) {
       return grunt.task.run([
         'clean:server',
         'concurrent:test',
-        'autoprefixer',
+        'postcss',
         'karma'
       ]);
     }
@@ -477,7 +479,7 @@ module.exports = function (grunt) {
       'mochaTest',
       'clean:server',
       'concurrent:test',
-      'autoprefixer',
+      'postcss',
       'karma'
     ]);
   });  
@@ -486,7 +488,7 @@ module.exports = function (grunt) {
     'clean:dist',
     'concurrent:dist',
     'useminPrepare',
-    'autoprefixer',
+    'postcss',
     'concat',
     'ngAnnotate',
     'copy:dist',
