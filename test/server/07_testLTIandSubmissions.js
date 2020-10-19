@@ -126,7 +126,7 @@ describe('Test Server: LTI and Submissions', function () {
     .end(function (error, reply) {
       console.log(reply.body);
       if (error) return done(error);
-      reply.body.msg.should.equal('Submission successful.');
+      reply.body.msg.should.equal('Your solution was successfully submitted.');
       done()
     });
 });
