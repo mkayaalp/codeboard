@@ -401,28 +401,28 @@ angular.module('codeboardApp')
             startDateLogs: $scope.fromDate,
             endDateLogs: $scope.untilDate
           }
-        }).
-          success(function (success) {
-            $scope.compilationStats = success.compilerLogs;
-            $scope.runStats = success.compilerRunLogs;
+        })
+        .success(function (success) {
+          $scope.compilationStats = success.compilerLogs;
+          $scope.runStats = success.compilerRunLogs;
 
-            $scope.totalCompilations = getTotal($scope.compilationStats, 'countProjectAccess');
-            $scope.totalRuns = getTotal($scope.runStats, 'countProjectAccess');
+          $scope.totalCompilations = getTotal($scope.compilationStats, 'countProjectAccess');
+          $scope.totalRuns = getTotal($scope.runStats, 'countProjectAccess');
 
-            sortStats($scope.compilationStats);
-            sortStats($scope.runStats);
+          sortStats($scope.compilationStats);
+          sortStats($scope.runStats);
 
-            $scope.currentPageCompilations = 1;
-            $scope.pageCompilationChanged();
+          $scope.currentPageCompilations = 1;
+          $scope.pageCompilationChanged();
 
-            $scope.currentPageRuns = 1;
-            $scope.pageRunsChanged();
+          $scope.currentPageRuns = 1;
+          $scope.pageRunsChanged();
 
-            $scope.isLoadingCompilationRunDetails = false;
-          }).
-          error(function (reply) {
-            $log.debug('Unable to get compile and run logs statistics.');
-          });
+          $scope.isLoadingCompilationRunDetails = false;
+        })
+        .error(function (reply) {
+          $log.debug('Unable to get compile and run logs statistics.');
+        });
       };
 
 
@@ -438,21 +438,21 @@ angular.module('codeboardApp')
             startDateLogs: $scope.fromDate,
             endDateLogs: $scope.untilDate
           }
-        }).
-          success(function (success) {
-            $scope.accessStats = success.projectAccess;
-            $scope.totalAccesses = getTotal($scope.accessStats, 'countProjectAccess');
+        })
+        .success(function (success) {
+          $scope.accessStats = success.projectAccess;
+          $scope.totalAccesses = getTotal($scope.accessStats, 'countProjectAccess');
 
-            sortStats($scope.accessStats);
+          sortStats($scope.accessStats);
 
-            $scope.currentPageProjectAccess = 1;
-            $scope.pageProjectAccessChanged();
+          $scope.currentPageProjectAccess = 1;
+          $scope.pageProjectAccessChanged();
 
-            $scope.isLoadingProjectAccessDetails = false;
-          }).
-          error(function (reply) {
-            $log.debug('Unable to get compile and run logs statistics.');
-          });
+          $scope.isLoadingProjectAccessDetails = false;
+        })
+        .error(function (reply) {
+          $log.debug('Unable to get compile and run logs statistics.');
+        });
       };
 
 
@@ -469,22 +469,22 @@ angular.module('codeboardApp')
             startDateLogs: $scope.fromDate,
             endDateLogs: $scope.untilDate
           }
-        }).
-          success(function(success) {
-            $scope.submissionStats = success.submitLogs;
-            $scope.totalSubmissions = getTotal($scope.submissionStats, 'countProjectAccess');
+        })
+        .success(function(success) {
+          $scope.submissionStats = success.submitLogs;
+          $scope.totalSubmissions = getTotal($scope.submissionStats, 'countProjectAccess');
 
-            sortStats($scope.submissionStats);
+          sortStats($scope.submissionStats);
 
-            $scope.currentPageSubmissions = 1;
-            $scope.pageSubmissionsChanged();
+          $scope.currentPageSubmissions = 1;
+          $scope.pageSubmissionsChanged();
 
-            $scope.isLoadingSubmissionsDetails = false;
+          $scope.isLoadingSubmissionsDetails = false;
 
-          })
-          .error(function(err) {
-            $log.debug('Unable to get submission statistics.');
-          });
+        })
+        .error(function(err) {
+          $log.debug('Unable to get submission statistics.');
+        });
       };
 
 
