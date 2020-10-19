@@ -282,7 +282,7 @@ var createDbDummyData = function () {
     })
     .catch(function(err) {
       console.log('dbDummyDatajs error:' + JSON.stringify(err));
-      return Promise.reject(err);
+      throw err;
     });
 };
 
