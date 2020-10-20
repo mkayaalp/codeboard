@@ -109,7 +109,7 @@ describe('Test Server: Users', function () {
   // TODO: Fix: using random user name; it might fail
   it('Create user: successful user creation', function (done) {
     var data = {};
-    var randomUserName = Math.random().toString(36).substring(12);
+    var randomUserName = Math.random().toString(36).substring(2,12);
     data.username = randomUserName;//"martin123";
     data.password = "pepe1234";
     data.email = randomUserName + "@inf.ethz.ch"
