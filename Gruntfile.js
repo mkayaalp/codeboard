@@ -151,34 +151,18 @@ module.exports = function (grunt) {
       }
     },
 
-    // Debugging with node inspector
-    'node-inspector': {
-      custom: {
-        options: {
-          'web-host': 'localhost'
-        }
-      }
-    },
-
     // Use nodemon to run server in debug mode with an initial breakpoint
     nodemon: {
       debug: {
         script: 'server.js',
         options: {
-          nodeArgs: ['--debug-brk'],
+          nodeArgs: ['--inspect-brk'],
           env: {
             PORT: process.env.PORT || 9000
           },
           callback: function (nodemon) {
             nodemon.on('log', function (event) {
               console.log(event.colour);
-            });
-
-            // opens browser on initial server start
-            nodemon.on('config:update', function () {
-              setTimeout(function () {
-                require('open')('http://localhost:8080/debug?port=5858');
-              }, 500);              
             });
           }
         }
@@ -338,8 +322,7 @@ module.exports = function (grunt) {
       ],
       debug: {
         tasks: [
-          'nodemon',
-          'node-inspector'
+          'nodemon'
         ],
         options: {
           logConcurrentOutput: true
