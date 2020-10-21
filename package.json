@@ -92,7 +92,6 @@
     "open": "0.0.4",
     "postcss": "7.0.35",
     "requirejs": "2.1.10",
-    "protractor": "1.4.0",
     "should": "2.1.0",
     "supertest": "0.8.2",
     "time-grunt": "0.2.1"
