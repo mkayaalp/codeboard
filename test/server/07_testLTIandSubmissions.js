@@ -114,6 +114,7 @@ describe('Test Server: LTI and Submissions', function () {
 
 
   it('LTI: submissions to a public project', function (done) {
+    this.timeout(5000);
     console.log('submission public project 19');
     var data = {};
     data = JSON.parse(fs.readFileSync("./test/server/src_examples/java/j_one_file.json"));
