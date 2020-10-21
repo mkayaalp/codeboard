@@ -77,6 +77,16 @@ module.exports = function(config) {
     // possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
     logLevel: config.LOG_INFO,
 
+    reporters: ['progress', 'coverage'],
+
+    preprocessors: {
+      'app/scripts/*.js': ['coverage'],
+      'app/scripts/**/*.js': ['coverage'],
+    },
+
+    coverageReporter: {
+      dir: 'test/coverage'
+    },
 
     // outputs to the console should be printed
     client: {
