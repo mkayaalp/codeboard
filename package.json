@@ -93,7 +93,7 @@
     "postcss": "7.0.35",
     "requirejs": "2.1.10",
     "should": "2.1.0",
-    "supertest": "0.8.2",
+    "supertest": "^4.0.2",
     "time-grunt": "0.2.1"
   },
   "browserslist": [
