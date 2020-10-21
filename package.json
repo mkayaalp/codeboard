@@ -88,7 +88,7 @@
     "karma-mocha": "0.2.1",
     "karma-ng-html2js-preprocessor": "0.2.0",
     "load-grunt-tasks": "0.2.0",
-    "mocha": "2.0.1",
+    "mocha": "^7.2.0",
     "open": "0.0.4",
     "postcss": "7.0.35",
     "requirejs": "2.1.10",
