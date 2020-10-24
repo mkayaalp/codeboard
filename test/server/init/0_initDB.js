@@ -16,13 +16,13 @@ describe('Test Server: Init the DB', function () {
     // Disable the foreign key constraints before trying to sync the models.
     // Otherwise, we're likely to violate a constraint while dropping a table.
     db.sequelize.query('SET FOREIGN_KEY_CHECKS = 0')
-      .spread(function (res, meta) {
+      .then(function ([res, meta]) {
         return db.sequelize.sync({force: true});
       })
       .then(function () {
         return db.sequelize.query('SET FOREIGN_KEY_CHECKS = 1');
       })
-      .spread(function (res, meta) {
+      .then(function ([res, meta]) {
         if (false) {
           console.log('Error in initDB:');
           console.log(err);
