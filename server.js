@@ -5,7 +5,6 @@ var express = require('express'),
   fs = require('fs'),
   bodyParser = require('body-parser'),
   util = require('util'),
-  expressValidator = require('express-validator'),
   session = require('express-session'),
   mongoStore = require('connect-mongo')(session),
   passport = require('passport'),
@@ -63,7 +62,6 @@ if(env == 'production') {
 
 app.use(busboy());
 app.use(bodyParser.json({limit: '10mb'}));
-app.use(expressValidator());
 
 
 app.engine('html', require('ejs').renderFile);
