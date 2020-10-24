@@ -8,7 +8,7 @@ Codeboard is a web-based IDE to teach programming in the classroom. This is the 
 
 Codeboard requires NodeJS, MySQL, MongoDB, and graphicsmagick (for resizing user profile pictures).
 
-* Nodejs: tested with version 8.17.0
+* Nodejs: tested with version 10.22.1
 * MongoDB: tested with version 3.6.20
 * Codeboard has been tested on an Ubuntu 16.04 system.
 
@@ -17,8 +17,8 @@ Codeboard requires NodeJS, MySQL, MongoDB, and graphicsmagick (for resizing user
 
 Installing node and npm:
 ```
-wget https://nodejs.org/dist/v8.17.0/node-v8.17.0-linux-x64.tar.gz
-sudo tar xf node-v8.17.0-linux-x64.tar.gz --directory /usr/local --strip-components 1
+wget https://nodejs.org/dist/v10.22.1/node-v10.22.1-linux-x64.tar.gz
+sudo tar xf node-v10.22.1-linux-x64.tar.gz --directory /usr/local --strip-components 1
 ```
 
 We need to install MySQL and create a database:
