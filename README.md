@@ -9,7 +9,7 @@ Codeboard is a web-based IDE to teach programming in the classroom. This is the 
 Codeboard requires NodeJS, MySQL, MongoDB, and graphicsmagick (for resizing user profile pictures).
 
 * Nodejs: tested with version 10.22.1
-* MongoDB: tested with version 3.6.20
+* MongoDB: tested with version 4.0.20
 * Codeboard has been tested on an Ubuntu 16.04 system.
 
 
@@ -45,17 +45,15 @@ FLUSH PRIVILEGES;
 
 We also need to install MongoDB:
 ```
-wget https://repo.mongodb.org/apt/ubuntu/dists/xenial/mongodb-org/3.6/multiverse/binary-amd64/mongodb-org-server_3.6.20_amd64.deb
-wget https://repo.mongodb.org/apt/ubuntu/dists/xenial/mongodb-org/3.6/multiverse/binary-amd64/mongodb-org-shell_3.6.20_amd64.deb
-sudo dpkg -i mongodb-org-server_3.6.20_amd64.deb mongodb-org-shell_3.6.20_amd64.deb
+wget https://repo.mongodb.org/apt/ubuntu/dists/xenial/mongodb-org/4.0/multiverse/binary-amd64/mongodb-org-server_4.0.20_amd64.deb
+wget https://repo.mongodb.org/apt/ubuntu/dists/xenial/mongodb-org/4.0/multiverse/binary-amd64/mongodb-org-shell_4.0.20_amd64.deb
+sudo dpkg -i mongodb-org-server_4.0.20_amd64.deb mongodb-org-shell_4.0.20_amd64.deb
 sudo systemctl enable mongod
 sudo systemctl start mongod
 ```
 
 Create users for mongo databases:
 ```
-use admin
-db.system.version.insert({ "_id" : "authSchema", "currentVersion" : 3 })
 use fullstack-dev
 db.createUser({ user: "mongoUser", pwd: "mongoPassword", roles: [ "readWrite", "dbAdmin" ]});
 use codeboardSession
