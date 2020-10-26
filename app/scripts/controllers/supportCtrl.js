@@ -14,6 +14,8 @@ angular.module('codeboardApp')
       responseStatusCode: 0
     }
 
+    $scope.link = location.protocol + '//' + location.host;
+
 
     var init = function() {
 

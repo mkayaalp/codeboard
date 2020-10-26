@@ -16,6 +16,8 @@ angular.module('codeboardApp')
     /* Parameter that is true if the user is watching her own page, otherwise false; use to display buttons */
     $scope.currentUserIsSelf = false;
 
+    $scope.link = location.protocol + '//' + location.host;
+
     /**
      * Function runs when the controller is loaded the first time.
      * Gets the user and user's project data from the server.

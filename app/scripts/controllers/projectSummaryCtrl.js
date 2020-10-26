@@ -13,6 +13,8 @@ angular.module('codeboardApp')
 
       $scope.prj = projectSummaryData;
 
+      $scope.prj.url = location.protocol + '//' + location.host + '/projects/' + $scope.prj.id;
+
       /**
        * Checks if the current user is an owner of the project for which the summary is displayed.
        * @return true if the current user is a) authenticated and b) an owner of the project
