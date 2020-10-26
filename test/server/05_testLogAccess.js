@@ -46,6 +46,16 @@ describe('Test Server: Logs', function() {
         cookie3 = reply.headers['set-cookie'].pop().split(';')[0];
         return req
           .get('/api/projects/19')
+          .set('cookie', cookie)
+          .expect('Content-Type', /json/)
+      })
+      .then(function(reply) {
+        if(reply.status != 200) {
+          console.log(reply);
+          throw new Error(reply.text);
+        }
+        return req
+          .get('/api/projects/19')
           .set('cookie', cookie2)
           .expect('Content-Type', /json/)
       })
@@ -293,10 +303,10 @@ describe('Test Server: Logs', function() {
 
   it('Logs: project access per project', function(done) {
     req
-      .get('/api/log/user/summaryProjectAccess/1')
+      .get('/api/log/user/summaryProjectAccess/19')
       .query({startDateLogs: startDate})
       .query({endDateLogs: endDate})
-      .set('cookie', cookie)
+      .set('cookie', cookie2)
       .expect('Content-Type', /json/)
       .expect(200)
       .end(function(error, reply) {
@@ -335,10 +345,10 @@ describe('Test Server: Logs', function() {
 
   it('Logs: summary of compilation and running per user per project', function(done) {
     req
-      .get('/api/log/user/summaryCompiler/1')
+      .get('/api/log/user/summaryCompiler/19')
       .query({startDateLogs: startDate})
       .query({endDateLogs: endDate})
-      .set('cookie', cookie)
+      .set('cookie', cookie2)
       .expect('Content-Type', /json/)
       .expect(200)
       .end(function(error, reply) {
