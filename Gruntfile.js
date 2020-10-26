@@ -373,7 +373,7 @@ module.exports = function (grunt) {
         './test/server/02_testProjectExplore.js',
         './test/server/03_testProjectAccess.js',
         './test/server/04_testUserAdmin.js',
-        //'./test/server/05_testLogAccess.js', // all test might be SuperUser tests; need to refactor
+        './test/server/05_testLogAccess.js',
         './test/server/06_testPartials.js',
         './test/server/07_testLTIandSubmissions.js', // it seems these are not generic tests; need to refactor
         './test/server/services/test_projectSrv.js',

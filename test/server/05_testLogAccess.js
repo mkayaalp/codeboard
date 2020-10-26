@@ -11,112 +11,268 @@ app.use(bodyParser.json());
 
 var cookie,cookie2,cookie3;
 var req = request(app);
+var payload;
+var id, id2, id3;
+var endDate = new Date();
+var startDate = new Date();
 
-describe('Test Server: Projects', function() {
-  before(function(done) {
-    req
+startDate.setFullYear(startDate.getFullYear() - 1);
+
+describe('Test Server: Logs', function() {
+  this.timeout(10000);
+  before(function() {
+    return req
       .post('/api/session')
       .send({username: 'hce', password: '1234'})
       .expect('Content-Type', /json/ )
       .expect(200)
-      .end(function(error, reply) {
-        //console.log(reply);
-        cookie = reply.headers['set-cookie'].pop().split(';')[0]; //.headers['set-cookie'];
-        req
+      .then(function(reply) {
+        cookie = reply.headers['set-cookie'].pop().split(';')[0];
+        return req
           .post('/api/session')
           .send({username: 'martin', password: '1234'})
           .expect('Content-Type', /json/ )
-          .expect(200)
-          .end(function(error, reply) {
-            //console.log(reply);
-            cookie2 = reply.headers['set-cookie'].pop().split(';')[0]; //.headers['set-cookie'];
-            req
-              .post('/api/session')
-              .send({username: 'other', password: '1234'})
-              .expect('Content-Type', /json/ )
-              .expect(200)
-              .end(function(error, reply) {
-                //console.log(reply);
-                cookie3 = reply.headers['set-cookie'].pop().split(';')[0]; //.headers['set-cookie'];
-                done();
-              });
-          });
+          .expect(200);
+      })
+      .then(function(reply) {
+        cookie2 = reply.headers['set-cookie'].pop().split(';')[0];
+        return req
+          .post('/api/session')
+          .send({username: 'other', password: '1234'})
+          .expect('Content-Type', /json/ )
+          .expect(200);
+      })
+      .then(function(reply) {
+        cookie3 = reply.headers['set-cookie'].pop().split(';')[0];
+        return req
+          .get('/api/projects/19')
+          .set('cookie', cookie2)
+          .expect('Content-Type', /json/)
+      })
+      .then(function(reply) {
+        if(reply.status != 200) {
+          console.log(reply);
+          throw new Error(reply.text);
+        }
+        return req
+          .get('/api/projects/19')
+          .set('cookie', cookie3)
+          .expect('Content-Type', /json/)
+      })
+      .then(function(reply) {
+        if(reply.status != 200) {
+          console.log(reply);
+          throw new Error(reply.text);
+        }
+        payload = {
+          action: 'compile',
+          language: reply.body.language,
+          files: [],
+          hasLtiData: false,
+        };
+        reply.body.fileSet.map(function(file) {
+          if (!file.isFolder)
+            payload.files.push({
+              content: file.content,
+              filename: file.path + '/' + file.filename,
+            });
+        });
+        payload.files.push({
+          content: JSON.stringify({
+            MainFileForCompilation: 'Application.java',
+            MainClassForRunning: 'Application'
+          }),
+          filename: 'Root/codeboard.json',
+        });
+        return req
+          .post('/api/projects/19')
+          .set('cookie', cookie)
+          .send(payload)
+          .expect('Content-Type', /json/)
+      })
+      .then(function(reply) {
+        if(reply.status != 200) {
+          console.log(reply);
+          throw new Error(reply.text);
+        }
+        id = reply.body.id;
+        return req
+          .post('/api/projects/19')
+          .set('cookie', cookie2)
+          .send(payload)
+          .expect('Content-Type', /json/)
+      })
+      .then(function(reply) {
+        if(reply.status != 200) {
+          console.log(reply);
+          throw new Error(reply.text);
+        }
+        id2 = reply.body.id;
+        return req
+          .post('/api/projects/19')
+          .set('cookie', cookie3)
+          .send(payload)
+          .expect('Content-Type', /json/)
+      })
+      .then(function(reply) {
+        if(reply.status != 200) {
+          console.log(reply);
+          throw new Error(reply.text);
+        }
+        id3 = reply.body.id;
+        payload.action = 'run';
+        payload.id = id;
+        return req
+          .post('/api/projects/19')
+          .set('cookie', cookie)
+          .send(payload)
+          .expect('Content-Type', /json/)
+      })
+      .then(function(reply) {
+        if(reply.status != 200) {
+          console.log(reply);
+          throw new Error(reply.text);
+        }
+        payload.id = id2;
+        return req
+          .post('/api/projects/19')
+          .set('cookie', cookie2)
+          .send(payload)
+          .expect('Content-Type', /json/)
+      })
+      .then(function(reply) {
+        if(reply.status != 200) {
+          console.log(reply);
+          throw new Error(reply.text);
+        }
+        payload.id = id3;
+        return req
+          .post('/api/projects/19')
+          .set('cookie', cookie3)
+          .send(payload)
+          .expect('Content-Type', /json/)
+      })
+      .then(function(reply) {
+        if(reply.status != 200) {
+          console.log(reply);
+          throw new Error(reply.text);
+        }
+        payload.action = 'compile';
+        payload.id = id;
+        return req
+          .post('/api/projects/19/submissions')
+          .set('cookie', cookie)
+          .send(payload)
+          .expect('Content-Type', /json/)
+      })
+      .then(function(reply) {
+        if(reply.status != 200) {
+          console.log(reply);
+          throw new Error(reply.text);
+        }
+        payload.id = id2;
+        return req
+          .post('/api/projects/19/submissions')
+          .set('cookie', cookie2)
+          .send(payload)
+          .expect('Content-Type', /json/)
+      })
+      .then(function(reply) {
+        if(reply.status != 200) {
+          console.log(reply);
+          throw new Error(reply.text);
+        }
+        payload.id = id3;
+        return req
+          .post('/api/projects/19/submissions')
+          .set('cookie', cookie3)
+          .send(payload)
+          .expect('Content-Type', /json/)
+      })
+      .then(function(reply) {
+        if(reply.status != 200) {
+          console.log(reply);
+          throw new Error(reply.text);
+        }
+        return null;
       });
   });
 
 
 
-  //it('Logs: Compilation and running summary per day for all projects', function(done) {
-  //  req
-  //    .get('/api/log/summaryDay')
-  //    .set('cookie', cookie)
-  //    .expect('Content-Type', /json/)
-  //    .expect(200)
-  //    .end(function(error, reply) {
-  //      if(error) return done(error);
-  //      //console.log(reply.body.compilerLogs[0]);
-  //      reply.body.compilerLogs[0]._id.should.not.equal(undefined);
-  //      reply.body.compilerLogs[0]._id.year.should.not.equal(undefined);
-  //      reply.body.compilerLogs[0]._id.month.should.not.equal(undefined);
-  //      reply.body.compilerLogs[0]._id.day.should.not.equal(undefined);
-  //      reply.body.compilerLogs[0].totalTime.should.not.equal(undefined);
-  //      reply.body.compilerLogs[0].averageTime.should.not.equal(undefined);
-  //      reply.body.compilerLogs[0].min.should.not.equal(undefined);
-  //      reply.body.compilerLogs[0].max.should.not.equal(undefined);
-  //      reply.body.compilerLogs[0].count.should.not.equal(undefined);
-  //      expect(reply.body.compilerLogs).to.have.length.above(10);
-  //
-  //      reply.body.compilerRunLogs[0]._id.should.not.equal(undefined);
-  //      reply.body.compilerRunLogs[0]._id.year.should.not.equal(undefined);
-  //      reply.body.compilerRunLogs[0]._id.month.should.not.equal(undefined);
-  //      reply.body.compilerRunLogs[0]._id.day.should.not.equal(undefined);
-  //      reply.body.compilerRunLogs[0].totalTime.should.not.equal(undefined);
-  //      reply.body.compilerRunLogs[0].averageTime.should.not.equal(undefined);
-  //      reply.body.compilerRunLogs[0].min.should.not.equal(undefined);
-  //      reply.body.compilerRunLogs[0].max.should.not.equal(undefined);
-  //      reply.body.compilerRunLogs[0].count.should.not.equal(undefined);
-  //      expect(reply.body.compilerRunLogs).to.have.length.above(10);
-  //      done()
-  //    });
-  //});
-  //
-  //
-  //it('Logs: Compilation and running summary per hour for all projects', function(done) {
-  //  req
-  //    .get('/api/log/summaryHour')
-  //    .set('cookie', cookie)
-  //    .expect('Content-Type', /json/)
-  //    .expect(200)
-  //    .end(function(error, reply) {
-  //      if(error) return done(error);
-  //      //console.log(reply);
-  //      reply.body.compilerLogs[0]._id.should.not.equal(undefined);
-  //      reply.body.compilerLogs[0]._id.year.should.not.equal(undefined);
-  //      reply.body.compilerLogs[0]._id.month.should.not.equal(undefined);
-  //      reply.body.compilerLogs[0]._id.day.should.not.equal(undefined);
-  //      reply.body.compilerLogs[0]._id.hour.should.not.equal(undefined);
-  //      reply.body.compilerLogs[0].totalTime.should.not.equal(undefined);
-  //      reply.body.compilerLogs[0].averageTime.should.not.equal(undefined);
-  //      reply.body.compilerLogs[0].min.should.not.equal(undefined);
-  //      reply.body.compilerLogs[0].max.should.not.equal(undefined);
-  //      reply.body.compilerLogs[0].count.should.not.equal(undefined);
-  //      expect(reply.body.compilerLogs).to.have.length.above(10);
-  //
-  //      reply.body.compilerRunLogs[0]._id.should.not.equal(undefined);
-  //      reply.body.compilerRunLogs[0]._id.year.should.not.equal(undefined);
-  //      reply.body.compilerRunLogs[0]._id.month.should.not.equal(undefined);
-  //      reply.body.compilerRunLogs[0]._id.day.should.not.equal(undefined);
-  //      reply.body.compilerRunLogs[0]._id.hour.should.not.equal(undefined);
-  //      reply.body.compilerRunLogs[0].totalTime.should.not.equal(undefined);
-  //      reply.body.compilerRunLogs[0].averageTime.should.not.equal(undefined);
-  //      reply.body.compilerRunLogs[0].min.should.not.equal(undefined);
-  //      reply.body.compilerRunLogs[0].max.should.not.equal(undefined);
-  //      reply.body.compilerRunLogs[0].count.should.not.equal(undefined);
-  //      expect(reply.body.compilerRunLogs).to.have.length.above(10);
-  //
-  //      done()
-  //    });
-  //});
+  it('Logs: Compilation and running summary per day for all projects', function(done) {
+    req
+      .get('/api/log/summaryDay')
+      .query({startDateLogs: startDate})
+      .query({endDateLogs: endDate})
+      .set('cookie', cookie)
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end(function(error, reply) {
+        if(error) return done(error);
+        //console.log(reply.body.compilerLogs[0]);
+        reply.body.compilerLogs[0]._id.should.not.equal(undefined);
+        reply.body.compilerLogs[0]._id.year.should.not.equal(undefined);
+        reply.body.compilerLogs[0]._id.month.should.not.equal(undefined);
+        reply.body.compilerLogs[0]._id.day.should.not.equal(undefined);
+        reply.body.compilerLogs[0].totalTime.should.not.equal(undefined);
+        reply.body.compilerLogs[0].averageTime.should.not.equal(undefined);
+        reply.body.compilerLogs[0].min.should.not.equal(undefined);
+        reply.body.compilerLogs[0].max.should.not.equal(undefined);
+        reply.body.compilerLogs[0].count.should.not.equal(undefined);
+        //expect(reply.body.compilerLogs).to.have.length.above(10);
+
+        reply.body.compilerRunLogs[0]._id.should.not.equal(undefined);
+        reply.body.compilerRunLogs[0]._id.year.should.not.equal(undefined);
+        reply.body.compilerRunLogs[0]._id.month.should.not.equal(undefined);
+        reply.body.compilerRunLogs[0]._id.day.should.not.equal(undefined);
+        reply.body.compilerRunLogs[0].totalTime.should.not.equal(undefined);
+        reply.body.compilerRunLogs[0].averageTime.should.not.equal(undefined);
+        reply.body.compilerRunLogs[0].min.should.not.equal(undefined);
+        reply.body.compilerRunLogs[0].max.should.not.equal(undefined);
+        reply.body.compilerRunLogs[0].count.should.not.equal(undefined);
+        //expect(reply.body.compilerRunLogs).to.have.length.above(10);
+        done()
+      });
+  });
+
+
+  it('Logs: Compilation and running summary per hour for all projects', function(done) {
+    req
+      .get('/api/log/summaryHour')
+      .set('cookie', cookie)
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end(function(error, reply) {
+        if(error) return done(error);
+        //console.log(reply);
+        reply.body.compilerLogs[0]._id.should.not.equal(undefined);
+        reply.body.compilerLogs[0]._id.year.should.not.equal(undefined);
+        reply.body.compilerLogs[0]._id.month.should.not.equal(undefined);
+        reply.body.compilerLogs[0]._id.day.should.not.equal(undefined);
+        reply.body.compilerLogs[0]._id.hour.should.not.equal(undefined);
+        reply.body.compilerLogs[0].totalTime.should.not.equal(undefined);
+        reply.body.compilerLogs[0].averageTime.should.not.equal(undefined);
+        reply.body.compilerLogs[0].min.should.not.equal(undefined);
+        reply.body.compilerLogs[0].max.should.not.equal(undefined);
+        reply.body.compilerLogs[0].count.should.not.equal(undefined);
+        //expect(reply.body.compilerLogs).to.have.length.above(10);
+
+        reply.body.compilerRunLogs[0]._id.should.not.equal(undefined);
+        reply.body.compilerRunLogs[0]._id.year.should.not.equal(undefined);
+        reply.body.compilerRunLogs[0]._id.month.should.not.equal(undefined);
+        reply.body.compilerRunLogs[0]._id.day.should.not.equal(undefined);
+        reply.body.compilerRunLogs[0]._id.hour.should.not.equal(undefined);
+        reply.body.compilerRunLogs[0].totalTime.should.not.equal(undefined);
+        reply.body.compilerRunLogs[0].averageTime.should.not.equal(undefined);
+        reply.body.compilerRunLogs[0].min.should.not.equal(undefined);
+        reply.body.compilerRunLogs[0].max.should.not.equal(undefined);
+        reply.body.compilerRunLogs[0].count.should.not.equal(undefined);
+        //expect(reply.body.compilerRunLogs).to.have.length.above(10);
+
+        done()
+      });
+  });
 
   it('Logs: project access summary for all projects', function(done) {
     req
@@ -126,7 +282,6 @@ describe('Test Server: Projects', function() {
       .expect(200)
       .end(function(error, reply) {
         if(error) return done(error);
-        //console.log(reply);
         reply.body.projectAccess[0]._id.should.not.equal(undefined);
         reply.body.projectAccess[0].lastDate.should.not.equal(undefined);
         reply.body.projectAccess[0].lastProject.should.not.equal(undefined);
@@ -138,7 +293,9 @@ describe('Test Server: Projects', function() {
 
   it('Logs: project access per project', function(done) {
     req
-      .get('/api/log/user/summaryProjectAccess/5')
+      .get('/api/log/user/summaryProjectAccess/1')
+      .query({startDateLogs: startDate})
+      .query({endDateLogs: endDate})
       .set('cookie', cookie)
       .expect('Content-Type', /json/)
       .expect(200)
@@ -178,7 +335,9 @@ describe('Test Server: Projects', function() {
 
   it('Logs: summary of compilation and running per user per project', function(done) {
     req
-      .get('/api/log/user/summaryCompiler/5')
+      .get('/api/log/user/summaryCompiler/1')
+      .query({startDateLogs: startDate})
+      .query({endDateLogs: endDate})
       .set('cookie', cookie)
       .expect('Content-Type', /json/)
       .expect(200)
@@ -223,13 +382,15 @@ describe('Test Server: Projects', function() {
 
   it('Logs: summary of submissions per user for a particular project', function(done) {
     req
-      .get('/api/log/user/summarySubmitAccess/5')
-      .set('cookie', cookie)
+      .get('/api/log/user/summarySubmitAccess/19')
+      .query({startDateLogs: startDate})
+      .query({endDateLogs: endDate})
+      .set('cookie', cookie2)
       .expect('Content-Type', /json/)
       .expect(200)
       .end(function(error, reply) {
         if(error) return done(error);
-        console.log(reply.body.submitLogs);
+        //console.log(reply.body.submitLogs);
         reply.body.submitLogs[0]._id.should.not.equal(undefined);
         reply.body.submitLogs[0].lastDate.should.not.equal(undefined);
         reply.body.submitLogs[0].lastProject.should.not.equal(undefined);
@@ -250,7 +411,7 @@ describe('Test Server: Projects', function() {
       .expect(200)
       .end(function(error, reply) {
         if(error) return done(error);
-        reply.body.compilerLogs[0].ip.should.not.equal(undefined);
+        reply.body.compilerLogs[0].id.should.not.equal(undefined);
         reply.body.compilerLogs[0].projectId.should.not.equal(undefined);
         reply.body.compilerLogs[0].startTime.should.not.equal(undefined);
         reply.body.compilerLogs[0].endTime.should.not.equal(undefined);
@@ -260,7 +421,7 @@ describe('Test Server: Projects', function() {
         reply.body.compilerLogs[0].action.should.not.equal(undefined);
         expect(reply.body.compilerLogs).to.have.length.above(0);
 
-        reply.body.pageLogs[0].ip.should.not.equal(undefined);
+        reply.body.pageLogs[0].projectId.should.not.equal(undefined);
         reply.body.pageLogs[0].pageCode.should.not.equal(undefined);
         reply.body.pageLogs[0].date.should.not.equal(undefined);
         reply.body.pageLogs[0].userName.should.not.equal(undefined);
